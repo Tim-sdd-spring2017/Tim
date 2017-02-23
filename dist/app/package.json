@@ -1,0 +1,9 @@
+{
+  "name": "tim",
+  "version": "1.0.0",
+  "description": "Optimizing your free time.",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ."
+  }
+}
