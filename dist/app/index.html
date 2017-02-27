@@ -5,33 +5,103 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/photon.min.css">
+    <!--<link rel="stylesheet" href="../css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../css/index.css">
 
     <!-- Javascript -->
-    <script src="js/menu.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="window">
-
-      <header class="toolbar toolbar-header">
-        <h1 class="title">Tim</h1>
-      </header>
-
       <div class="window-content">
         <div class="pane-group">
+
+          <!-- Pane 1 -->
           <div class="pane pane-sm sidebar">
             <nav class="nav-group">
-              <h5 class="nav-group-title">Favorites</h5>
+              <h5 class="nav-group-title">Filter</h5>
               <span class="nav-group-item">
                 <span class="icon icon-home"></span>
-                Home
+                All
               </span>
               <span class="nav-group-item active">
                 <span class="icon icon-bell"></span>
                 Classes
               </span>
             </nav>
+            <footer class="toolbar toolbar-footer">
+              <div class="toolbar-actions">
+                <button class="btn btn-default pull-right">
+                  Add Group
+                </button>
+              </div>
+            </footer>
           </div>
 
+          <!-- Pane 2 -->
+          <div class="pane">
+            <div class="tab-group">
+              <div class="tab-item">
+                <span class="icon icon-cancel icon-close-tab"></span>
+                Tab
+              </div>
+              <div class="tab-item active">
+                <span class="icon icon-cancel icon-close-tab"></span>
+                Tab Active
+              </div>
+              <div class="tab-item">
+                <span class="icon icon-cancel icon-close-tab"></span>
+                Tab
+              </div>
+            </div>
+            <div class="container overflow-y">
+              <form>
+                <div class="form-group">
+                  <label>Task Name</label>
+                  <input type="text" name="taskTitle" class="form-control" placeholder="Title" />
+                </div>
+                <div class="form-group">
+                  <table>
+                    <tr>
+                      <td>Start Time:</td><td><input type="time" name="startTime" /></td>
+                      <td>End Time:</td><td><input type="time" name="endTime" /></td>
+                      <td>Duration:</td><td><input type="time" name="duration" /></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="form-group">
+                  <table class="table-striped">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Time Details</th>
+                        <th>Priorty</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Sub-task 1</td>
+                        <td>Finish By: Oct 13, 2015</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>Sub-task 2</td>
+                        <td>Start By: Oct 14, 2015</td>
+                        <td>2</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="form-group">
+                  <button id="addSubtask" class="btn btn-default">Add Sub-Task</button>
+                </div>
+                <div class="form-group pull-right">
+                  <button id="saveChanges" class="btn btn-primary">Save Changes</button>
+                  <button id="cancel" class="btn btn-default">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- Pane 3
           <div class="pane">
             <table class="table-striped">
               <thead>
@@ -49,82 +119,11 @@
                   <td>Oct 13, 2015</td>
                   <td>connors</td>
                 </tr>
-                <tr>
-                  <td>base.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>button-groups.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>buttons.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>docs.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>forms.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>grid.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>icons.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>images.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>lists.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>mixins.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>navs.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>normalize.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
               </tbody>
-            </table>
+            </table>-->
           </div>
         </div>
+
       </div>
     </div>
   </body>
