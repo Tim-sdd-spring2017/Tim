@@ -20,10 +20,10 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // Create the main browser window.
   mainWindow = new BrowserWindow({
-    width: 600,
-    height: 300,
+    width: 1000,
+    height: 500,
     'min-width': 500,
-    'min-height': 200,
+    'min-height': 500,
     'accept-first-mouse': true,
     'title-bar-style': 'hidden'
   });
@@ -32,7 +32,7 @@ app.on('ready', function() {
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
   // Open the DevTools.
-  // mainWindow.openDevTools();
+  mainWindow.openDevTools();
 
   // Invoked when window is closed
   mainWindow.on('closed', function() {
