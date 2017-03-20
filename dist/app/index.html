@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="timApp">
   <head>
     <title>Tim</title>
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/photon.min.css">
-    <!--<link rel="stylesheet" href="../css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="../css/index.css">
+    <!-- Classes -->
+    <script type="text/javascript" src="../classes/Task.class.js"></script>
 
     <!-- Javascript -->
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/photon.min.css">
+    <link rel="stylesheet" href="../css/index.css">
   </head>
-  <body>
+  <body ng-controller="timController">
     <div class="window">
       <div class="window-content">
         <div class="pane-group">
@@ -19,17 +23,20 @@
           <div class="pane pane-sm sidebar">
             <nav class="nav-group">
               <h5 class="nav-group-title">Filter</h5>
-              <span class="nav-group-item">
+              <span class="nav-group-item active">
                 <span class="icon icon-home"></span>
                 All
               </span>
-              <span class="nav-group-item active">
+              <span class="nav-group-item">
                 <span class="icon icon-bell"></span>
                 Classes
               </span>
             </nav>
             <footer class="toolbar toolbar-footer">
               <div class="toolbar-actions">
+                <button class="btn btn-default" ng-click="foobar($event)">
+                  Add Event
+                </button>
                 <button class="btn btn-default pull-right">
                   Add Group
                 </button>
@@ -37,7 +44,7 @@
             </footer>
           </div>
 
-          <!-- Pane 2 -->
+          <!-- Pane 3 -->
           <div class="pane">
             <div class="tab-group">
               <div class="tab-item">
@@ -101,7 +108,7 @@
               </form>
             </div>
           </div>
-          <!-- Pane 3
+          <!--
           <div class="pane">
             <table class="table-striped">
               <thead>
