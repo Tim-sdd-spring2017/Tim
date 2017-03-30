@@ -30,7 +30,7 @@ function Event(t, st, et) {
   };
 
   this.getStartTime = function() {
-    return this.startTime;
+    return new Date(this.startTime);
   };
 
   this.setStartTime = function(st) {
@@ -38,7 +38,7 @@ function Event(t, st, et) {
   };
 
   this.getEndTime = function() {
-    return this.endTime;
+    return new Date(this.endTime);
   };
 
   this.setEndTime = function(et) {
@@ -65,6 +65,16 @@ function Event(t, st, et) {
 
   this.getNumNotes = function() {
     return this.notes.length;
+  };
+
+  this.clone = function(rule) {
+    if (typeof rule === "undefined") {
+      return new Event(this.title, this.startTime, this.endTime);
+    }
+    else if (rule.time <= 0) {
+      throw "rule.time <= 0";
+    }
+    return new Event(this.title, this.startTime+rule.time, this.endTime+tule.time);
   };
 }
 
