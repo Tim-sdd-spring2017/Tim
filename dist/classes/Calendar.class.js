@@ -23,11 +23,11 @@ function Calendar(container) {
   };
 
   // TODO: handle repeated events
-  this.removeEvent = function(index) {
+  this.removeEvent = function(id) {
     // if (index >= 0 && index < this.events.length) {
     //   this.events.splice(index,1);
     // }
-    this.eventContainer.removeEvent(index);
+    this.eventContainer.removeEvent(id);
   };
 
   // TODO: handle repeated events

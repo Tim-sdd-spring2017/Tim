@@ -19,6 +19,11 @@ function Event(t, st, et) {
     this.endTime = et;
   }
   this.notes = [];
+  this.id = new Date().getTime();
+
+  this.getEventId = function() {
+    return this.id;
+  }
 
   this.getTitle = function() {
     return this.title;

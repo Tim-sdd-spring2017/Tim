@@ -50,8 +50,18 @@ function EventContainer(startTime, endTime) {
     return lo;
   };
 
-  this.removeEvent = function(index) {
-    return;
+  // Removes event by id
+  // return true if an event is removed; false otherwise
+  this.removeEvent = function(id) {
+    flag = false;
+    for (i=0; i<this.events.length; i++) {
+      if (this.events[i].getEventId() === id) {
+        this.events.splice(i, 1);
+        flag = true;
+        break;
+      }
+    }
+    return flag;
   };
 }
 

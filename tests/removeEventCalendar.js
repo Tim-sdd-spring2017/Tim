@@ -11,7 +11,7 @@ module.exports = function() {
   var c = new Calendar();
   var e = new Event();
   c.addEvent( e );
-  c.removeEvent( 0 );
+  c.removeEvent( e.getEventId() );
   return (
     c.getNumEvents() === 0
   );
