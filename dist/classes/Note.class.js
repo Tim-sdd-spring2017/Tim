@@ -6,6 +6,7 @@ function Note(t) {
   else {
     this.title = t;
   }
+  this.created = new Date();
 
   this.getTitle = function() {
     return this.title;
@@ -15,8 +16,8 @@ function Note(t) {
     this.title = t;
   };
 
-  // Why does note have a time attribute?
-  this.getTime = function() {
+  this.getTimeCreated = function() {
+    return this.created;
   };
 }
 
