@@ -53,22 +53,26 @@ function Calendar(container) {
   // NOTE: added because of test case
   // TODO: implement function
   this.addTask = function(t) {
+    this.eventContainer.addTask(t);
   };
 
   // NOTE: added because of test case
   // TODO: implement function
   this.getTasks = function() {
+    return this.eventContainer.getTasks();
   };
 
   // NOTE: added because of test case
   // TODO: implement function
   this.getNumTasks = function() {
     // this.getTasks().length;
+    return this.eventContainer.getNumTasks();
   };
 
   // NOTE: added because of test case
   // TODO: implement function
-  this.removeTask = function(index) {
+  this.removeTask = function(id) {
+    this.eventContainer.removeTask(id);
   };
 }
 
