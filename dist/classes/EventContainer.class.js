@@ -10,6 +10,7 @@ function EventContainer(startTime, endTime) {
   this.endTime = new Date(endTime);
   this.events = [];  // events that do not repeat
   this.rules = [];   // events that repeat
+  this.tasks = [];
   /**
    * Adds an event
    * @param  Event                            e       The event to add
@@ -93,6 +94,28 @@ function EventContainer(startTime, endTime) {
       }
     }
     return false;
+  };
+
+  this.addTask = function(t) {
+    this.tasks.push(t);
+  };
+
+  this.getTasks = function() {
+    return this.tasks.slice();
+  };
+
+  this.removeTask = function(id) {
+    for (i=0; i<this.tasks.length; i++) {
+      if (this.tasks[i].getTaskId() === id) {
+        this.tasks.splice(i,1);
+        return true;
+      }
+    }
+    return false;
+  };
+
+  this.getNumTasks = function() {
+    return this.tasks.length;
   };
 }
 
