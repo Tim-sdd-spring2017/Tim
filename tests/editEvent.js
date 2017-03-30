@@ -2,8 +2,6 @@
  * Test for successfully edit an event *
  ***************************************/
 
-// 0 for failure
-// 1 for success
 var Event = require( '../dist/classes/Event.class' );
 module.exports = function() {
   var title = "Test", actual = "Actual";
