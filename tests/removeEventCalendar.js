@@ -4,6 +4,7 @@
 
 // 0 for failure
 // 1 for success
+var EventContainer = require( '../dist/classes/EventContainer.class' );
 var Event = require( '../dist/classes/Event.class' );
 var Calendar = require( '../dist/classes/Calendar.class' );
 module.exports = function() {

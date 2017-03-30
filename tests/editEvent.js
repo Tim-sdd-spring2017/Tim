@@ -15,7 +15,7 @@ module.exports = function() {
   e.setEndTime( actualET );
   return (
     e.getTitle() === actual &&
-    e.getStartTime() === actualST &&
-    e.getEndTime() === actualET
+    e.getStartTime().toDateString() === actualST.toDateString() &&
+    e.getEndTime().toDateString() === actualET.toDateString()
   );
 };

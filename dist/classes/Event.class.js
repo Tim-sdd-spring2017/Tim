@@ -2,7 +2,7 @@
 function Event(t, st, et) {
   if (typeof t === "undefined") {
     this.title = "Untitled";
-  } 
+  }
   else {
     this.title = t;
   }
@@ -34,7 +34,7 @@ function Event(t, st, et) {
   };
 
   this.setStartTime = function(st) {
-    this.startTime = st;
+    this.startTime = new Date(st);
   };
 
   this.getEndTime = function() {
@@ -42,7 +42,7 @@ function Event(t, st, et) {
   };
 
   this.setEndTime = function(et) {
-    this.endTime = et;
+    this.endTime = new Date(et);
     // TODO: Need to make sure endTime is always later than startTime
   };
 
