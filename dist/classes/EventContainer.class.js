@@ -20,12 +20,12 @@ function EventContainer(startTime, endTime) {
   this.getEvents = function() {
     this.rules.forEach(function(r) {
       var newEvent = r.event.clone();
-      var t = new Date(this.startTime);
-      while (newEvent.getStartTime() < Math.min(this.endTime, r.endDate)) {
-        newEvent = r.event.clone(r);
+      console.log( newEvent.getStartTime() );
+      while (newEvent.getStartTime().getTime() < Math.min(this.endTime.getTime(), r.rule.endDate.getTime())) {
+        newEvent = newEvent.clone(r.rule);
         this.insert(newEvent);
       }
-    });
+    }, this);
     return this.events;
   };
 
@@ -38,9 +38,9 @@ function EventContainer(startTime, endTime) {
         hi = this.events.length-1;
     while(lo <= hi) {
       mid = Math.floor((lo+hi)/2);
-      if (events[mid].getStartTime() > e.getStartTime()) {
+      if (this.events[mid].getStartTime() > e.getStartTime()) {
         hi = mid-1;
-      } else if (events[mid].getStartTime() < e.getStartTime()) {
+      } else if (this.events[mid].getStartTime() < e.getStartTime()) {
         lo = mid+1;
       } else {
         this.events.splice(mid, 0, e);

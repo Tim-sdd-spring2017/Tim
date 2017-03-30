@@ -20,7 +20,6 @@ function Event(t, st, et) {
   }
   this.notes = [];
 
-
   this.getTitle = function() {
     return this.title;
   };
@@ -60,7 +59,6 @@ function Event(t, st, et) {
     if (index >= 0 && index < this.notes.length) {
       this.notes.splice(index,1);
     }
-
   };
 
   this.getNumNotes = function() {
@@ -69,12 +67,13 @@ function Event(t, st, et) {
 
   this.clone = function(rule) {
     if (typeof rule === "undefined") {
-      return new Event(this.title, this.startTime, this.endTime);
+      return new Event(this.title, new Date(this.startTime.getTime()), new Date(this.endTime.getTime()));
     }
     else if (rule.time <= 0) {
       throw "rule.time <= 0";
     }
-    return new Event(this.title, this.startTime+rule.time, this.endTime+tule.time);
+    //console.log( rule );
+    return new Event(this.title, new Date(this.startTime.getTime()+rule.time), new Date(this.endTime.getTime()+rule.time));
   };
 }
 
