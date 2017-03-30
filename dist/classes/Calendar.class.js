@@ -1,8 +1,16 @@
 // TODO: add member variables and complete functions
-function Calendar() {
+if(typeof window === "undefined") {
+  var EventContainer = require("./EventContainer.class");
+}
+function Calendar(container) {
   // this.events = [];
   // this.repeatedEvents = [];
-  this.eventContainer = new EventContainer();
+  if (typeof container === "undefined") {
+    this.eventContainer = new EventContainer(new Date(), new Date() + 12*3600*1000);
+  }
+  else {
+    this.eventContainer = container;
+  }
 
   this.addEvent = function(e, repeats) {
       this.eventContainer.addEvent(e, repeats);
@@ -10,7 +18,7 @@ function Calendar() {
 
   // TODO: handle repeated events
   this.getEvents = function() {
-    // returns a copy of events; may need better ways of copying    
+    // returns a copy of events; may need better ways of copying
     return this.eventContainer.getEvents();
   };
 

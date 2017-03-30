@@ -1,6 +1,6 @@
 function EventContainer(startTime, endTime) {
-  this.startTime = startTime;
-  this.endTime = endTime;
+  this.startTime = new Date(startTime);
+  this.endTime = new Date(endTime);
   this.events = [];  // events that do not repeat
   this.rules = [];   // events that repeat
   this.addEvent = function(e, repeats) {
@@ -29,9 +29,13 @@ function EventContainer(startTime, endTime) {
     return this.events;
   };
 
+  this.getNumEvents = function() {
+    return this.getEvents().length;
+  };
+
   this.insert = function(e) {
     var mid, lo = 0,
-        hi = events.length-1;
+        hi = this.events.length-1;
     while(lo <= hi) {
       mid = Math.floor((lo+hi)/2);
       if (events[mid].getStartTime() > e.getStartTime()) {
@@ -43,8 +47,13 @@ function EventContainer(startTime, endTime) {
         return mid;
       }
     }
-    this.events.insert(lo, 0, e);
+    this.events.splice(lo, 0, e);
     return lo;
   };
+
+  this.removeEvent = function(index) {
+    return;
+  };
 }
+
 module.exports = EventContainer;
