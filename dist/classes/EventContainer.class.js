@@ -20,7 +20,6 @@ function EventContainer(startTime, endTime) {
   this.getEvents = function() {
     this.rules.forEach(function(r) {
       var newEvent = r.event.clone();
-      console.log( newEvent.getStartTime() );
       while (newEvent.getStartTime().getTime() < Math.min(this.endTime.getTime(), r.rule.endDate.getTime())) {
         newEvent = newEvent.clone(r.rule);
         this.insert(newEvent);
