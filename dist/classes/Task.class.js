@@ -1,3 +1,4 @@
+// TODO: add member variables and complete functions
 function Task() {
   this.getTitle = function() {
   };

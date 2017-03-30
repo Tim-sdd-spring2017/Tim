@@ -54,6 +54,22 @@ function Calendar(container) {
   // TODO: implement function
   this.addTask = function(t) {
   };
+
+  // NOTE: added because of test case
+  // TODO: implement function
+  this.getTasks = function() {
+  };
+
+  // NOTE: added because of test case
+  // TODO: implement function
+  this.getNumTasks = function() {
+    // this.getTasks().length;
+  };
+
+  // NOTE: added because of test case
+  // TODO: implement function
+  this.removeTask = function(index) {
+  };
 }
 
 module.exports = Calendar;
