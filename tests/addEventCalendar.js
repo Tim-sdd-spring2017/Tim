@@ -2,8 +2,6 @@
  * Test for successfully adding an event to a calendar *
  *******************************************************/
 
-// 0 for failure
-// 1 for success
 var Event = require( '../dist/classes/Event.class' );
 var Calendar = require( '../dist/classes/Calendar.class' );
 module.exports = function() {
