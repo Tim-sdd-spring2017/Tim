@@ -2,6 +2,7 @@ angular.module("timApp", []).controller("timController", function($scope) {
   var selectedEvent;
   var modified = false;
   var calendar = new Calendar();
+  $scope.events = [];
   $scope.openEvents = [];
 
   var updateForm = function( e ) {
@@ -13,7 +14,7 @@ angular.module("timApp", []).controller("timController", function($scope) {
   };
 
   var clearForm = function() {
-    $scope.eventTitle = "";
+    $scope.eventTitle = "Untitled";
     var t = new Date();
     t.setSeconds(0);
     t.setMilliseconds(0);
@@ -27,8 +28,9 @@ angular.module("timApp", []).controller("timController", function($scope) {
     st.setMilliseconds(0);
     var e = new Event("Untitled", st.getTime(), st.getTime()+(1000*3600));
     calendar.addEvent(e);
+    $scope.openEvents.push(e);
+    $scope.events = calendar.getEvents();
     updateForm(e);
-    $scope.openEvents = calendar.getEvents();
   };
 
   $scope.setSelectedEvent = function(e) {
@@ -44,6 +46,13 @@ angular.module("timApp", []).controller("timController", function($scope) {
       }
       return false;
     }
+  };
+
+  $scope.openEvent = function(e) {
+    if( $scope.openEvents.indexOf(e) === -1) {
+      $scope.openEvents.push(e);
+    }
+    $scope.setSelectedEvent(e);
   };
 
   $scope.change = function() {
@@ -64,7 +73,7 @@ angular.module("timApp", []).controller("timController", function($scope) {
       calendar.addEvent(selectedEvent);
     }
     updateForm(selectedEvent);
-    $scope.openEvents = calendar.getEvents();
+    $scope.events = calendar.getEvents();
     modified = false;
   };
 
@@ -72,9 +81,8 @@ angular.module("timApp", []).controller("timController", function($scope) {
     return selectedEvent;
   };
 
-  $scope.closeEvent = function(id) {
-    calendar.removeEvent(id);
-    $scope.openEvents = calendar.getEvents();
+  $scope.closeEvent = function(index) {
+    $scope.openEvents.splice(index, 1);
     if( $scope.openEvents.length != 0 ) {
       selectedEvent = $scope.openEvents[0];
     }

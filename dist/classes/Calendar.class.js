@@ -12,12 +12,8 @@ if(typeof window === "undefined") {
  */
 function Calendar(container) {
   // If a container isn't passed in (default value)
-  if (typeof container === "undefined") {
-    this.eventContainer = new EventContainer(new Date(), new Date() + 12*3600*1000);
-  }
-  else {
-    this.eventContainer = container;
-  }
+  this.eventContainer = (typeof container === "undefined") ?
+    new EventContainer(new Date(), new Date() + 12*3600*1000) : container;
 
   /**
    * Adds an event

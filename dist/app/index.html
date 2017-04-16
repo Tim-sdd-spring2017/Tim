@@ -47,12 +47,20 @@
               </div>
             </footer>
           </div>
-
+          <div class="pane">
+            <div class="container">
+              <div style="border:1px solid black;" ng-repeat="event in events | orderBy:'+getStartTime()'" ng-click="openEvent(event)">
+                {{ event.getTitle() }}<br />
+                Start: {{ event.getStartTime().toTimeString().slice(0,5) }} |
+                End: {{ event.getEndTime().toTimeString().slice(0,5) }}
+              </div>
+            </div>
+          </div>
           <!-- Pane 2 -->
           <div class="pane">
             <div class="tab-group">
               <div class="tab-item" ng-repeat="event in openEvents" ng-class="{active: getSelectedEvent().getEventId() == event.getEventId()}" ng-click="setSelectedEvent(event)">
-                <span class="icon icon-cancel icon-close-tab" ng-click="closeEvent(event.getEventId())"></span>
+                <span class="icon icon-cancel icon-close-tab" ng-click="closeEvent($index)"></span>
                 {{ event.getTitle() }}
               </div>
             </div>
