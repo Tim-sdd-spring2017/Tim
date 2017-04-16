@@ -15,13 +15,14 @@ function EventContainer(startTime, endTime) {
    * Adds an event
    * @param  Event                            e       The event to add
    * @param  rule:{time:int, endDate:Date}    repeats The rule for repeating an event
+   * @return int                              index   The index it was inserted at
    */
   this.addEvent = function(e, repeats) {
     if (typeof repeats === "undefined") {
-      this.insert(e);
+      return this.insert(e);
     }
     else {
-      this.rules.push({event:e, rule:repeats});
+      return this.rules.push({event:e, rule:repeats}) - 1;
     }
   };
 
