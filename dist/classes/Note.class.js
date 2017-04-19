@@ -1,11 +1,8 @@
 // TODO: add member variables and complete functions
 function Note(t) {
-  if (typeof t === "undefined") {
-    this.title = "Untitled";
-  }
-  else {
-    this.title = t;
-  }
+  this.title = (typeof t === "undefined") ?
+    "Untitled" : t;
+  this.content = "";
   this.created = new Date();
 
   this.getTitle = function() {
@@ -15,6 +12,14 @@ function Note(t) {
   this.setTitle = function( t ) {
     this.title = t;
   };
+
+  this.getContent = function() {
+    return this.content;
+  }
+
+  this.setContent = function( c ) {
+    this.content = c;
+  }
 
   this.getTimeCreated = function() {
     return this.created;
