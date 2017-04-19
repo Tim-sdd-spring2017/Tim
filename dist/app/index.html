@@ -47,6 +47,8 @@
               </div>
             </footer>
           </div>
+
+          <!-- Pane 2 -->
           <div class="pane">
             <div class="container">
               <div style="border:1px solid black;" ng-repeat="event in events | orderBy:'+getStartTime()'" ng-click="openEvent(event)">
@@ -56,7 +58,8 @@
               </div>
             </div>
           </div>
-          <!-- Pane 2 -->
+
+          <!-- Pane 3 -->
           <div class="pane">
             <div class="tab-group">
               <div class="tab-item" ng-repeat="event in openEvents" ng-class="{active: getSelectedEvent().getEventId() == event.getEventId()}" ng-click="setSelectedEvent(event)">
@@ -65,9 +68,9 @@
               </div>
             </div>
             <div class="container overflow-y">
-              <form ng-model="eventForm" ng-submit="saveCurrentEvent()">
+              <form ng-submit="saveCurrentEvent()">
                 <div class="form-group">
-                  <label>Task Name</label>
+                  <label>Event Name</label>
                   <input type="text" ng-model="eventTitle" ng-change="change()" class="form-control" placeholder="Title" />
                 </div>
                 <div class="form-group">
@@ -80,12 +83,12 @@
                     <tbody>
                       <tr>
                         <td>
-                          <input type="date" ng-model="startTime" ng-change="change()" />
-                          <input type="time" ng-model="startTime" ng-change="change()" />
+                          <input type="date" ng-model="eventStartTime" ng-change="change()" />
+                          <input type="time" ng-model="eventStartTime" ng-change="change()" />
                         </td>
                         <td>
-                          <input type="date" ng-model="endTime" ng-change="change()" />
-                          <input type="time" ng-model="endTime" ng-change="change()" />
+                          <input type="date" ng-model="eventEndTime" ng-change="change()" />
+                          <input type="time" ng-model="eventEndTime" ng-change="change()" />
                         </td>
                       </tr>
                     </tbody>
@@ -96,26 +99,23 @@
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Time Details</th>
-                        <th>Priorty</th>
+                        <th>Content</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Sub-task 1</td>
-                        <td>Finish By: Oct 13, 2015</td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>Sub-task 2</td>
-                        <td>Start By: Oct 14, 2015</td>
-                        <td>2</td>
+                      <tr ng-repeat="note in notes">
+                        <td>{{ note.getTitle() }}</td>
+                        <td>{{ note.getContent() }}</td>
                       </tr>
                     </tbody>
                   </table>
-                </div>
-                <div class="form-group">
-                  <button id="addSubtask" class="btn btn-default">Add Sub-Task</button>
+                  <table>
+                    <tr>
+                      <td><input type="input" ng-model="noteTitle" placeholder="Title" /></td>
+                      <td><textarea ng-model="noteContent"></textarea></td>
+                      <td><input type="button" class="btn btn-default" ng-click="addNote()" value="Add Note" /></td>
+                    </tr>
+                  </table>
                 </div>
                 <div class="form-group pull-right">
                   <input type="submit" class="btn btn-primary" value="Save Changes" />
@@ -124,29 +124,8 @@
               </form>
             </div>
           </div>
-          <!--
-          <div class="pane">
-            <table class="table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Kind</th>
-                  <th>Date Modified</th>
-                  <th>Author</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>bars.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-              </tbody>
-            </table>-->
           </div>
         </div>
-
       </div>
     </div>
   </body>

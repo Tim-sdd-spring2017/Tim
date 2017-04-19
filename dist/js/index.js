@@ -5,12 +5,13 @@ angular.module("timApp", []).controller("timController", function($scope) {
   $scope.events = [];
   $scope.openEvents = [];
 
-  var updateForm = function( e ) {
+  $scope.notes = [];
+
+  var updateForm = function(e) {
     selectedEvent = e;
     $scope.eventTitle = selectedEvent.getTitle();
-
-    $scope.startTime = selectedEvent.getStartTime();
-    $scope.endTime = selectedEvent.getEndTime();
+    $scope.eventStartTime = selectedEvent.getStartTime();
+    $scope.eventEndTime = selectedEvent.getEndTime();
   };
 
   var clearForm = function() {
@@ -18,8 +19,8 @@ angular.module("timApp", []).controller("timController", function($scope) {
     var t = new Date();
     t.setSeconds(0);
     t.setMilliseconds(0);
-    $scope.startTime = t;
-    $scope.endTime = t;
+    $scope.eventStartTime = t;
+    $scope.eventEndTime = t;
   };
 
   $scope.addEvent = function() {
@@ -59,17 +60,23 @@ angular.module("timApp", []).controller("timController", function($scope) {
     modified = true;
   };
 
+  $scope.addNote = function() {
+    var noteTitle = $scope.noteTitle;
+    var noteContent = $scope.noteContent;
+    $scope.notes.push(new Note($scope.noteTitle, $scope.noteContent));
+  };
+
   $scope.saveCurrentEvent = function() {
     if( typeof selectedEvent !== "undefined" ) {
-      var eventStartTime = new Date($scope.startTime);
-      var eventEndTime = new Date($scope.endTime);
+      var eventStartTime = new Date($scope.eventStartTime);
+      var eventEndTime = new Date($scope.eventEndTime);
 
       selectedEvent.setTitle( $scope.eventTitle );
       selectedEvent.setStartTime( eventStartTime );
       selectedEvent.setEndTime( eventEndTime );
     }
     else {
-      selectedEvent = new Event($scope.eventTitle, $scope.startTime, $scope.endTime);
+      selectedEvent = new Event($scope.eventTitle, $scope.eventStartTime, $scope.eventEndTime);
       calendar.addEvent(selectedEvent);
     }
     updateForm(selectedEvent);
