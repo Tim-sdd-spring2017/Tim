@@ -8,26 +8,17 @@
  */
 function Event(t, st, et) {
   // If a title isn't passed in
-  if (typeof t === "undefined") {
-    this.title = "Untitled";
-  }
-  else {
-    this.title = t;
-  }
+  this.title = (typeof t === "undefined") ?
+    "Untitled" : t;
+
   // If a start time isn't passed in
-  if (typeof st === "undefined") {
-    this.startTime = new Date();
-  }
-  else {
-    this.startTime = st;
-  }
+  this.startTime = (typeof st === "undefined") ?
+    new Date() : st;
+
   // If a end time isn't passed in
-  if (typeof et === "undefined") {
-    this.endTime = new Date();
-  }
-  else {
-    this.endTime = et;
-  }
+  this.endTime = (typeof et === "undefined") ?
+    new Date() : et;
+
   this.notes = [];
   // Generate random id based on time in milliseconds
   this.id = new Date().getTime();
