@@ -13,6 +13,12 @@ module.exports = function() {
   var e4 = new Event("4", new Date(d+4000));
   var e5 = new Event("5", new Date(d+5000));
 
+  ec.addEvent(e5);
+  ec.addEvent(e4);
+  ec.addEvent(e3);
+  ec.addEvent(e2);
+  ec.addEvent(e1);
+
   return (
     ec.getNumEvents() === 5 &&
     ec.getEvents()[0] === e1 &&
