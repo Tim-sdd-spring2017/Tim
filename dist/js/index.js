@@ -3,6 +3,7 @@ angular.module("timApp", []).controller("timController", function($scope) {
   var modified = false;
   var calendar = new Calendar();
   $scope.events = [];
+  $scope.tasks = [];
   $scope.openEvents = [];
 
   $scope.notes = [];
