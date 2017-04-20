@@ -181,8 +181,6 @@ function EventContainer(startTime, endTime) {
   this.getNumTasks = function() {
     return this.tasks.length;
   };
-
-
 }
 
 module.exports = EventContainer;
