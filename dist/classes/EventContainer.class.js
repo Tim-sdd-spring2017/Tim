@@ -40,6 +40,10 @@ function EventContainer(startTime, endTime) {
     return this.rules[index].rule;
   };
 
+  /**
+   * Gets the total amount of time required for all tasks
+   * @return int  Time required for all tasks
+   */
   this.getTotalTaskTime = function() {
     var s = 0;
     for (var i = 0; i < this.tasks.length; i++) {
@@ -48,16 +52,20 @@ function EventContainer(startTime, endTime) {
     return s;
   };
 
+  /**
+   * Adds time chunks for tasks based on the time required
+   */
   this.addTaskBlocks = function() {
     var block;
     var totalTaskTime = this.getTotalTaskTime();
     if (totalTaskTime === 0) return;
     var scheduledTaskTime = 0;
+    // TODO: Check if the events are empty
     for (var i = 0; i < this.events.length-1; i++) {
       block = this.events[i+1].getStartTime().getTime() - this.events[i].getEndTime().getTime();
       if (block >= 1000*60*60) {
         if (scheduledTaskTime + block >= totalTaskTime) {
-          this.insert(new Event("TaskBlock",this.events[i].getEndTime(), 
+          this.insert(new Event("TaskBlock",this.events[i].getEndTime(),
                                 new Date(this.events[i].getEndTime().getTime() + totalTaskTime - scheduledTaskTime)));
           break;
         } else {
@@ -132,10 +140,18 @@ function EventContainer(startTime, endTime) {
     return false;
   };
 
+  /**
+   * Adds a task to the container
+   * @param  Task   t   The task to add
+   */
   this.addTask = function(t) {
     this.tasks.push(t);
   };
 
+  /**
+   * Gets all the tasks in the container
+   * @return Task[]  All of the tasks
+   */
   this.getTasks = function() {
     this.tasks.sort(function(a,b) {
       return a.getDeadline().getTime() < b.getDeadline().getTime();
@@ -143,6 +159,11 @@ function EventContainer(startTime, endTime) {
     return this.tasks.slice();
   };
 
+  /**
+   * Removes a task based on id
+   * @param  int     id  The id of the task to be removed
+   * @return Boolean     True if the task was removed, false otherwise
+   */
   this.removeTask = function(id) {
     for (i=0; i<this.tasks.length; i++) {
       if (this.tasks[i].getTaskId() === id) {
@@ -153,6 +174,10 @@ function EventContainer(startTime, endTime) {
     return false;
   };
 
+  /**
+   * Gets the number of tasks
+   * @return int The number of tasks
+   */
   this.getNumTasks = function() {
     return this.tasks.length;
   };
