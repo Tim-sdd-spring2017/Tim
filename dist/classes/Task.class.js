@@ -1,14 +1,10 @@
 // TODO: add member variables and complete functions
-function Task(t, st, et) {
-  // If a title isn't passed in
-  this.title = (typeof t === "undefined") ?
-    "Untitled" : t;
-  // If a start time isn't passed in
-  this.startTime = (typeof st === "undefined") ?
-    new Date() : st;
-  // If a end time isn't passed in
-  this.endTime = (typeof et === "undefined") ?
-    new Date() : et;
+function Task(t, dur) {
+
+  this.title = t;
+  this.duration = dur;
+  this.startTime;
+  this.endTime;
 
   this.notes = [];
   // Generate random id based on time in milliseconds
@@ -20,6 +16,14 @@ function Task(t, st, et) {
 
   this.setTitle = function(t) {
     this.title = t;
+  };
+
+  this.getDuration = function() {
+    return this.duration;
+  };
+
+  this.setDuration = function(dur) {
+    this.duration = dur;
   };
 
   this.getStartTime = function() {

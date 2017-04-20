@@ -21,10 +21,10 @@ module.exports = function() {
 
   return (
     ec.getNumEvents() === 5 &&
-    ec.getEvents()[0] === e1 &&
-    ec.getEvents()[1] === e2 &&
-    ec.getEvents()[2] === e3 &&
-    ec.getEvents()[3] === e4 &&
-    ec.getEvents()[4] === e5
+    ec.getEvents()[0].getEventId() === e1.getEventId() &&
+    ec.getEvents()[1].getEventId() === e2.getEventId() &&
+    ec.getEvents()[2].getEventId() === e3.getEventId() &&
+    ec.getEvents()[3].getEventId() === e4.getEventId() &&
+    ec.getEvents()[4].getEventId() === e5.getEventId()
   );
 };
