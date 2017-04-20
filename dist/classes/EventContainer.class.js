@@ -16,6 +16,7 @@ function EventContainer(startTime, endTime) {
   this.events = [];  // events that do not repeat
   this.rules = [];   // events that repeat
   this.tasks = [];
+  this.scheduledTaskTime = 0;
   /**
    * Adds an event
    * @param  Event                            e       The event to add
@@ -59,21 +60,23 @@ function EventContainer(startTime, endTime) {
     var block;
     var totalTaskTime = this.getTotalTaskTime();
     if (totalTaskTime === 0) return;
-    var scheduledTaskTime = 0;
+    // var scheduledTaskTime = 0;
     // TODO: Check if the events are empty
+
     for (var i = 0; i < this.events.length-1; i++) {
       block = this.events[i+1].getStartTime().getTime() - this.events[i].getEndTime().getTime();
       if (block >= 1000*60*60) {
-        if (scheduledTaskTime + block >= totalTaskTime) {
+        if (this.scheduledTaskTime + block >= totalTaskTime) {
           this.insert(new Event("TaskBlock",this.events[i].getEndTime(),
-                                new Date(this.events[i].getEndTime().getTime() + totalTaskTime - scheduledTaskTime)));
+                                new Date(this.events[i].getEndTime().getTime() + totalTaskTime - this.scheduledTaskTime)));
           break;
         } else {
           this.insert(new Event("TaskBlock",this.events[i].getEndTime(), this.events[i+1].getStartTime()));
-          scheduledTaskTime += block;
+          this.scheduledTaskTime += block;
         }
       }
     }
+
   };
 
   /**
@@ -90,6 +93,9 @@ function EventContainer(startTime, endTime) {
       }
     }, this);
     this.addTaskBlocks();
+    this.events.sort(function(a,b) {
+      return a.getStartTime().getTime() < b.getStartTime().getTime();
+    });
     return this.events.slice();
   };
 
