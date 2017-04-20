@@ -11,6 +11,7 @@ module.exports = function() {
   var currentTime = new Date();
   var e = new Event( "Foobar", new Date(currentTime.getTime()), new Date(currentTime.getTime()+12*3600*1000) );
   ec.addEvent( e, {time: 1*24*3600*1000, endDate: new Date(startTime.getTime()+range+1000)} );
+
   return (
     ec.getNumEvents() === 7
   );

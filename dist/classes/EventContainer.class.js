@@ -5,6 +5,11 @@
  * @param Date     startTime The beginning bound of the EventContainer
  * @param Date     endTime   The end bound of the EventContainer
  */
+ // Nodejs requirement for test case
+if(typeof window === "undefined") {
+  var Event = require("./Event.class");
+}
+
 function EventContainer(startTime, endTime) {
   this.startTime = new Date(startTime);
   this.endTime = new Date(endTime);
@@ -35,6 +40,34 @@ function EventContainer(startTime, endTime) {
     return this.rules[index].rule;
   };
 
+  this.getTotalTaskTime = function() {
+    var s = 0;
+    for (var i = 0; i < this.tasks.length; i++) {
+      s += this.tasks[i].getDuration();
+    }
+    return s;
+  };
+
+  this.addTaskBlocks = function() {
+    var block;
+    var totalTaskTime = this.getTotalTaskTime();
+    if (totalTaskTime === 0) return;
+    var scheduledTaskTime = 0;
+    for (var i = 0; i < this.events.length-1; i++) {
+      block = this.events[i+1].getStartTime().getTime() - this.events[i].getEndTime().getTime();
+      if (block >= 1000*60*60) {
+        if (scheduledTaskTime + block >= totalTaskTime) {
+          this.insert(new Event("TaskBlock",this.events[i].getEndTime(), 
+                                new Date(this.events[i].getEndTime().getTime() + totalTaskTime - scheduledTaskTime)));
+          break;
+        } else {
+          this.insert(new Event("TaskBlock",this.events[i].getEndTime(), this.events[i+1].getStartTime()));
+          scheduledTaskTime += block;
+        }
+      }
+    }
+  };
+
   /**
    * Gets the events
    * @return Event[] The events
@@ -48,8 +81,10 @@ function EventContainer(startTime, endTime) {
         this.insert(newEvent);
       }
     }, this);
-    return this.events;
+    this.addTaskBlocks();
+    return this.events.slice();
   };
+
 
   /**
    * Gets the number of events
@@ -102,6 +137,9 @@ function EventContainer(startTime, endTime) {
   };
 
   this.getTasks = function() {
+    this.tasks.sort(function(a,b) {
+      return a.getDeadline().getTime() < b.getDeadline().getTime();
+    });
     return this.tasks.slice();
   };
 
@@ -118,6 +156,8 @@ function EventContainer(startTime, endTime) {
   this.getNumTasks = function() {
     return this.tasks.length;
   };
+
+
 }
 
 module.exports = EventContainer;
