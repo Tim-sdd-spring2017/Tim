@@ -100,19 +100,21 @@
                       <tr>
                         <th>Name</th>
                         <th>Content</th>
+                        <th>Remove</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat="note in notes">
                         <td>{{ note.getTitle() }}</td>
                         <td>{{ note.getContent() }}</td>
+                        <td><input type="button" ng-click="removeNote($index)" value="X" /></td>
                       </tr>
                     </tbody>
                   </table>
                   <table>
                     <tr>
                       <td><input type="input" ng-model="noteTitle" placeholder="Title" /></td>
-                      <td><textarea ng-model="noteContent"></textarea></td>
+                      <td><textarea ng-model="noteContent" placeholder="Content..."></textarea></td>
                       <td><input type="button" class="btn btn-default" ng-click="addNote()" value="Add Note" /></td>
                     </tr>
                   </table>

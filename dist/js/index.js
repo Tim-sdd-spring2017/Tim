@@ -12,6 +12,8 @@ angular.module("timApp", []).controller("timController", function($scope) {
     $scope.eventTitle = selectedEvent.getTitle();
     $scope.eventStartTime = selectedEvent.getStartTime();
     $scope.eventEndTime = selectedEvent.getEndTime();
+
+    $scope.notes = selectedEvent.getNotes();
   };
 
   var clearForm = function() {
@@ -21,6 +23,10 @@ angular.module("timApp", []).controller("timController", function($scope) {
     t.setMilliseconds(0);
     $scope.eventStartTime = t;
     $scope.eventEndTime = t;
+
+    $scope.notes = [];
+    $scope.noteTitle = "";
+    $scope.noteContent = "";
   };
 
   $scope.addEvent = function() {
@@ -35,7 +41,7 @@ angular.module("timApp", []).controller("timController", function($scope) {
   };
 
   $scope.setSelectedEvent = function(e) {
-    if(!modified) {
+    if(!modified || typeof selectedEvent === "undefined") {
       updateForm(e);
       return true;
     }
@@ -61,9 +67,24 @@ angular.module("timApp", []).controller("timController", function($scope) {
   };
 
   $scope.addNote = function() {
+    if( typeof selectedEvent === "undefined" ) return false;
     var noteTitle = $scope.noteTitle;
     var noteContent = $scope.noteContent;
-    $scope.notes.push(new Note($scope.noteTitle, $scope.noteContent));
+    selectedEvent.addNote(new Note($scope.noteTitle, $scope.noteContent));
+
+    $scope.notes = selectedEvent.getNotes();
+    $scope.noteTitle = "";
+    $scope.noteContent = "";
+    return true;
+  };
+
+  $scope.removeNote = function(index) {
+    if( confirm( "Are you sure you want to remove this note?" ) ) {
+      selectedEvent.removeNote(index);
+      $scope.notes = selectedEvent.getNotes();
+      return true;
+    }
+    return false;
   };
 
   $scope.saveCurrentEvent = function() {
@@ -74,14 +95,16 @@ angular.module("timApp", []).controller("timController", function($scope) {
       selectedEvent.setTitle( $scope.eventTitle );
       selectedEvent.setStartTime( eventStartTime );
       selectedEvent.setEndTime( eventEndTime );
+
     }
     else {
       selectedEvent = new Event($scope.eventTitle, $scope.eventStartTime, $scope.eventEndTime);
       calendar.addEvent(selectedEvent);
     }
-    updateForm(selectedEvent);
-    $scope.events = calendar.getEvents();
+
     modified = false;
+    $scope.openEvent( selectedEvent );
+    $scope.events = calendar.getEvents();
   };
 
   $scope.getSelectedEvent = function() {
