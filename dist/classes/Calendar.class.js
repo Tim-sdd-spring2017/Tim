@@ -46,27 +46,35 @@ function Calendar(container) {
     return this.eventContainer.getNumEvents();
   };
 
-  // NOTE: added because of test case
-  // TODO: implement function
+  /**
+   * Adds a task to the eventContainer
+   * @param  Task    t  Task to be added
+   */
   this.addTask = function(t) {
     this.eventContainer.addTask(t);
   };
 
-  // NOTE: added because of test case
-  // TODO: implement function
+  /**
+   * Gets all the tasks
+   * @return Task[]   The tasks
+   */
   this.getTasks = function() {
     return this.eventContainer.getTasks();
   };
 
-  // NOTE: added because of test case
-  // TODO: implement function
+  /**
+   * Gets the number of tasks
+   * @return int  The number of tasks
+   */
   this.getNumTasks = function() {
-    // this.getTasks().length;
     return this.eventContainer.getNumTasks();
   };
 
-  // NOTE: added because of test case
-  // TODO: implement function
+  /**
+   * Removes a task by id
+   * @param  int     id  The id of the task to remove
+   * @return [type]      [description]
+   */
   this.removeTask = function(id) {
     this.eventContainer.removeTask(id);
   };

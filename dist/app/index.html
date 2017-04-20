@@ -31,10 +31,12 @@
                 <span class="icon icon-home"></span>
                 All
               </span>
+              <!--
               <span class="nav-group-item">
                 <span class="icon icon-bell"></span>
                 Classes
               </span>
+            -->
             </nav>
             <footer class="toolbar toolbar-footer">
               <div class="toolbar-actions">
@@ -55,6 +57,7 @@
                 {{ event.getTitle() }}<br />
                 Start: {{ event.getStartTime().toTimeString().slice(0,5) }} |
                 End: {{ event.getEndTime().toTimeString().slice(0,5) }}
+                <input type="button" ng-click="deleteEvent(event.getEventId())" value="X" />
               </div>
             </div>
           </div>
