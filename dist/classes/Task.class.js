@@ -1,8 +1,9 @@
 // TODO: add member variables and complete functions
-function Task(t, dur) {
+function Task(t, dur, dl) {
 
   this.title = t;
   this.duration = dur;
+  this.deadline = dl;
   this.startTime;
   this.endTime;
 
@@ -26,22 +27,14 @@ function Task(t, dur) {
     this.duration = dur;
   };
 
-  this.getStartTime = function() {
-    return new Date(this.startTime);
+  this.getDeadline = function() {
+    return this.deadline;
   };
 
-  this.setStartTime = function(st) {
-    this.startTime = st;
+  this.setDeadline = function(dl) {
+    this.deadline = dl;
   };
 
-  this.getEndTime = function() {
-    return new Date(this.endTime);
-  };
-
-  this.setEndTime = function(et) {
-    this.endTime = et;
-  };
-  
   this.getTaskId = function() {
     return this.id;
   };

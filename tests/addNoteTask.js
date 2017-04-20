@@ -5,7 +5,7 @@
 var Task = require( '../dist/classes/Task.class' );
 module.exports = function() {
   var n = new Note();
-  var t = new Task("t", 1000);
+  var t = new Task("t", 1000, new Date());
   t.addNote( n );
   return (
     t.getNumNotes() === 1 &&
