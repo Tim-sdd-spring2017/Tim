@@ -13,12 +13,18 @@ module.exports = function() {
   var e4 = new Event("4", new Date(d+4000));
   var e5 = new Event("5", new Date(d+5000));
 
+  ec.addEvent(e5);
+  ec.addEvent(e4);
+  ec.addEvent(e3);
+  ec.addEvent(e2);
+  ec.addEvent(e1);
+
   return (
     ec.getNumEvents() === 5 &&
-    ec.getEvents()[0] === e1 &&
-    ec.getEvents()[1] === e2 &&
-    ec.getEvents()[2] === e3 &&
-    ec.getEvents()[3] === e4 &&
-    ec.getEvents()[4] === e5
+    ec.getEvents()[0].getEventId() === e1.getEventId() &&
+    ec.getEvents()[1].getEventId() === e2.getEventId() &&
+    ec.getEvents()[2].getEventId() === e3.getEventId() &&
+    ec.getEvents()[3].getEventId() === e4.getEventId() &&
+    ec.getEvents()[4].getEventId() === e5.getEventId()
   );
 };
