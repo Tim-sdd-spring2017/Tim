@@ -57,24 +57,64 @@ function EventContainer(startTime, endTime) {
    * Adds time chunks for tasks based on the time required
    */
   this.addTaskBlocks = function() {
-    var block;
     var totalTaskTime = this.getTotalTaskTime();
     if (totalTaskTime === 0) return;
+    if (this.events.length === 0) {
+      var now = new Date();
+      this.insert(new Event("TaskBlock", now, new Date(now + totalTaskTime - this.scheduledTaskTime)));
+      this.scheduledTaskTime = totalTaskTime;
+      return;
+    }
     // var scheduledTaskTime = 0;
     // TODO: Check if the events are empty
 
-    for (var i = 0; i < this.events.length-1; i++) {
-      block = this.events[i+1].getStartTime().getTime() - this.events[i].getEndTime().getTime();
+    // for (var i = 0; i < this.events.length-1; i++) {
+    //   block = this.events[i+1].getStartTime().getTime() - this.events[i].getEndTime().getTime();
+    //   if (block >= 1000*60*60) {
+    //     if (this.scheduledTaskTime + block >= totalTaskTime) {
+    //       this.insert(new Event("TaskBlock",this.events[i].getEndTime(),
+    //                             new Date(this.events[i].getEndTime().getTime() + totalTaskTime - this.scheduledTaskTime)));
+    //       break;
+    //     } else {
+    //       this.insert(new Event("TaskBlock",this.events[i].getEndTime(), this.events[i+1].getStartTime()));
+    //       this.scheduledTaskTime += block;
+    //     }
+    //   }
+    // }
+
+    var i=0;
+    var now = new Date();
+    var block;
+    while (i < this.events.length) {
+      block = this.events[i].getStartTime() - now;
       if (block >= 1000*60*60) {
+        // found a some time block > 1 hour, add a task block
         if (this.scheduledTaskTime + block >= totalTaskTime) {
-          this.insert(new Event("TaskBlock",this.events[i].getEndTime(),
-                                new Date(this.events[i].getEndTime().getTime() + totalTaskTime - this.scheduledTaskTime)));
+          this.insert(new Event("TaskBlock", now, new Date(now.getTime() + totalTaskTime - this.scheduledTaskTime)));
+          this.scheduledTaskTime = totalTaskTime;
           break;
-        } else {
-          this.insert(new Event("TaskBlock",this.events[i].getEndTime(), this.events[i+1].getStartTime()));
+        }
+        else {
+          this.insert(new Event("TaskBlock", now, this.events[i].getStartTime()));
+          i += 1;
           this.scheduledTaskTime += block;
+          now = this.events[i].getEndTime();
         }
       }
+      else {
+        now = this.events[i].getEndTime();
+      }
+      i += 1;
+    }
+    if (this.scheduledTaskTime < totalTaskTime) {
+      block = totalTaskTime - this.scheduledTaskTime;
+      console.log("DEBUG:");
+      console.log(this.events.length);
+      console.log(this.events);
+      console.log("END");
+      now = this.events[this.events.length-1].getEndTime();
+      this.insert(new Event("TaskBlock", now, new Date(now + block)));
+      this.scheduledTaskTime = totalTaskTime;
     }
 
   };
@@ -84,18 +124,18 @@ function EventContainer(startTime, endTime) {
    * @return Event[] The events
    */
   this.getEvents = function() {
-    this.rules.forEach(function(r) {
-      var newEvent = r.event.clone();
-      // TODO: make sure events aren't already added
-      while (newEvent.getStartTime().getTime() < Math.min(this.endTime.getTime(), r.rule.endDate.getTime())) {
-        newEvent = newEvent.clone(r.rule);
-        this.insert(newEvent);
-      }
-    }, this);
-    this.addTaskBlocks();
-    this.events.sort(function(a,b) {
-      return a.getStartTime().getTime() < b.getStartTime().getTime();
-    });
+    // this.rules.forEach(function(r) {
+    //   var newEvent = r.event.clone();
+    //   // TODO: make sure events aren't already added
+    //   while (newEvent.getStartTime().getTime() < Math.min(this.endTime.getTime(), r.rule.endDate.getTime())) {
+    //     newEvent = newEvent.clone(r.rule);
+    //     this.insert(newEvent);
+    //   }
+    // }, this);
+    // this.addTaskBlocks();
+    // this.events.sort(function(a,b) {
+    //   return a.getStartTime().getTime() < b.getStartTime().getTime();
+    // });
     return this.events.slice();
   };
 

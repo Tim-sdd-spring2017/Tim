@@ -19,6 +19,8 @@ module.exports = function() {
   ec.addEvent(e2);
   ec.addEvent(e1);
 
+
+
   return (
     ec.getNumEvents() === 5 &&
     ec.getEvents()[0].getEventId() === e1.getEventId() &&
