@@ -52,6 +52,7 @@ function Calendar(container) {
    */
   this.addTask = function(t) {
     this.eventContainer.addTask(t);
+    this.eventContainer.addTaskBlocks();
   };
 
   /**

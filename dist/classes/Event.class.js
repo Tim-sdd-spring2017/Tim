@@ -20,6 +20,7 @@ function Event(t, st, et) {
     new Date() : et;
 
   this.notes = [];
+  
   // Generate random id based on time in milliseconds
   this.id = new Date().getTime();
 
