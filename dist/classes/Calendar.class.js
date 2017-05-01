@@ -52,7 +52,9 @@ function Calendar(container) {
    */
   this.addTask = function(t) {
     this.eventContainer.addTask(t);
-    this.eventContainer.addTaskBlocks();
+    this.eventContainer.sortTasks();
+    this.eventContainer.removeAllTaskBlocks();
+    this.eventContainer.addAllTaskBlocks();
   };
 
   /**
