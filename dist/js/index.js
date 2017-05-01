@@ -4,18 +4,15 @@
 angular.module("timApp", []).controller("timController", function($scope) {
   // "Private" Variables
   var selectedEvent;
+  var selectedTask;
   var modified = false;
   var calendar = new Calendar();
-
-  // Add tasks because no UI functionality
-  calendar.addTask(new Task("Task 1", 3600*1000, new Date(new Date().getTime()+10*3600*1000)));
-  calendar.addTask(new Task("Task 2", 3600*1000, new Date(new Date().getTime()+10*3600*1000)));
-  calendar.addTask(new Task("Task 3", 3600*1000, new Date(new Date().getTime()+10*3600*1000)));
 
   // View variables
   $scope.events = [];
   $scope.tasks = [];
   $scope.openEvents = [];
+  $scope.openTasks = [];
 
   $scope.notes = [];      // Notes for open event
 
@@ -186,6 +183,76 @@ angular.module("timApp", []).controller("timController", function($scope) {
     if( confirm( "Are you sure you want to delete this event?" ) ) {
       calendar.removeEvent(id);
       $scope.events = calendar.getEvents();
+      return true;
+    }
+    return false;
+  };
+
+  $scope.addTask = function() {
+    var st = new Date();
+    st.setSeconds(0);
+    st.setMilliseconds(0);
+    var t = new Task("Untitled", 0, st.getTime()+(1000*3600));
+    calendar.addTask(t);
+    $scope.openTasks.push(t);
+    selectedTask = t;
+    $scope.events = calendar.getEvents();
+    $scope.tasks = calendar.getTasks();
+
+    $scope.taskTitle = t.getTitle();
+    $scope.taskDuration = t.getDuration();
+    $scope.taskDeadline = t.getDeadline();
+  };
+
+  $scope.openTask = function(t) {
+    if( $scope.openTasks.indexOf(t) === -1) {
+      $scope.openTasks.push(t);
+    }
+    $scope.setSelectedEvent(t);
+  };
+
+  $scope.saveCurrentTask = function() {
+    var taskDuration = $scope.taskDuration;
+    var taskDeadline = new Date($scope.taskDeadline);
+    if( typeof selectedTask !== "undefined" ) {
+      selectedTask.setTitle( $scope.taskTitle );
+      selectedTask.setDuration( taskDuration );
+      selectedTask.setDeadline( taskDeadline );
+    }
+    else {
+      selectedTask = new Task($scope.taskTitle, taskDuration, taskDeadline );
+      calendar.addTask(selectedTask);
+    }
+
+    $scope.openTask( selectedTask );
+    $scope.events = calendar.getEvents();
+    $scope.tasks = calendar.getTasks();
+  };
+
+  $scope.setSelectedTask = function(t) {
+    $scope.taskTitle = t.getTitle();
+    $scope.taskDuration = t.getDuration();
+    $scope.deadline = t.getDeadline();
+  };
+
+  $scope.openTask = function(t) {
+    if( $scope.openTasks.indexOf(t) === -1 ) {
+      $scope.openTasks.push(t);
+    }
+    $scope.setSelectedTask(t);
+  };
+
+  $scope.closeTask = function(index) {
+    $scope.openTasks.splice(index, 1);
+    if( $scope.openTasks.length != 0 ) {
+      selectedTask = $scope.openTasks[0];
+    }
+  };
+
+  $scope.deleteTask = function(id) {
+    if( confirm( "Are you sure you want to delete this task?" ) ) {
+      calendar.removeTask(id);
+      $scope.tasks = calendar.getTasks();
       return true;
     }
     return false;
