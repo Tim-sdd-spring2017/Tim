@@ -9,7 +9,7 @@ function Task(t, dur, dl) {
 
   this.notes = [];
   // Generate random id based on time in milliseconds
-  this.id = new Date().getTime();
+  this.id = new Date().getTime() + Math.floor(Math.random() * 1000);
 
   this.getTitle = function() {
     return this.title;

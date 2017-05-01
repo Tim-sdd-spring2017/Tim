@@ -106,17 +106,26 @@ function EventContainer(startTime, endTime) {
       }
       i += 1;
     }
+
     if (this.scheduledTaskTime < totalTaskTime) {
       block = totalTaskTime - this.scheduledTaskTime;
-      console.log("DEBUG:");
-      console.log(this.events.length);
-      console.log(this.events);
-      console.log("END");
+      // console.log("block" + block);
+      // console.log("DEBUG:");
+      // console.log(this.events.length);
+      // console.log(this.events);
+      // console.log("END");
       now = this.events[this.events.length-1].getEndTime();
-      this.insert(new Event("TaskBlock", now, new Date(now + block)));
+      // console.log(now);
+      this.insert(new Event("TaskBlock", now, new Date(now.getTime() + block)));
       this.scheduledTaskTime = totalTaskTime;
     }
 
+  };
+
+  this.sortEvents = function() {
+    this.events.sort(function(a,b) {
+      return a.getStartTime().getTime() - b.getStartTime().getTime();
+    });
   };
 
   /**
@@ -194,14 +203,17 @@ function EventContainer(startTime, endTime) {
     this.tasks.push(t);
   };
 
+  this.sortTasks = function() {
+    this.tasks.sort(function(a,b) {
+      return a.getDeadline().getTime() - b.getDeadline().getTime();
+    });
+  };
+
   /**
    * Gets all the tasks in the container
    * @return Task[]  All of the tasks
    */
   this.getTasks = function() {
-    this.tasks.sort(function(a,b) {
-      return a.getDeadline().getTime() < b.getDeadline().getTime();
-    });
     return this.tasks.slice();
   };
 
@@ -218,6 +230,28 @@ function EventContainer(startTime, endTime) {
       }
     }
     return false;
+  };
+
+  this.removeAllTaskBlocks = function() {
+    this.scheduledTaskTime = 0;
+    var i = 0;
+    while (i < this.events.length) {
+      if (this.events[i].getTitle() === "TaskBlock") {
+        this.events.splice(i,1);
+      }
+      else {
+        i += 1;
+      }
+    }
+  };
+
+  this.addAllTaskBlocks = function() {
+    var copyOfTasks = this.getTasks();
+    this.tasks = [];
+    for (var i=0; i<copyOfTasks.length; i++) {
+      this.addTask(copyOfTasks[i]);
+      this.addTaskBlocks();
+    }
   };
 
   /**
