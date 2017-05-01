@@ -3,7 +3,7 @@ function Task(t, dur, dl) {
 
   this.title = t;
   this.duration = dur;
-  this.deadline = dl;
+  this.deadline = new Date(dl);
   this.startTime;
   this.endTime;
 
