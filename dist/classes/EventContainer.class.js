@@ -61,7 +61,7 @@ function EventContainer(startTime, endTime) {
     if (totalTaskTime === 0) return;
     if (this.events.length === 0) {
       var now = new Date();
-      this.insert(new Event("TaskBlock", now, new Date(now + totalTaskTime - this.scheduledTaskTime)));
+      this.insert(new Event("TaskBlock", now, new Date(now.getTime() + totalTaskTime - this.scheduledTaskTime)));
       this.scheduledTaskTime = totalTaskTime;
       return;
     }
@@ -86,7 +86,7 @@ function EventContainer(startTime, endTime) {
     var now = new Date();
     var block;
     while (i < this.events.length) {
-      block = this.events[i].getStartTime() - now;
+      block = this.events[i].getStartTime() - now.getTime();
       if (block >= 1000*60*60) {
         // found a some time block > 1 hour, add a task block
         if (this.scheduledTaskTime + block >= totalTaskTime) {
