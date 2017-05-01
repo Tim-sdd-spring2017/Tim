@@ -29,7 +29,7 @@ function Calendar(container) {
    * @return Event[] The events
    */
   this.getEvents = function() {
-    // returns a copy of events; may need better ways of copying
+    this.eventContainer.sortEvents();
     return this.eventContainer.getEvents();
   };
 
@@ -60,6 +60,7 @@ function Calendar(container) {
    * @return Task[]   The tasks
    */
   this.getTasks = function() {
+    this.eventContainer.sortTasks();
     return this.eventContainer.getTasks();
   };
 
@@ -77,7 +78,13 @@ function Calendar(container) {
    * @return [type]      [description]
    */
   this.removeTask = function(id) {
+    // remove the task
     this.eventContainer.removeTask(id);
+    // remove all the task blocks
+    this.eventContainer.removeAllTaskBlocks();
+    // add all tasks except this one
+    this.eventContainer.addAllTaskBlocks();
+
   };
 }
 

@@ -23,7 +23,7 @@ module.exports = function() {
   c.addEvent(e3);
 
   var t1 = new Task("t1", 1000*3600);
-  var t2 = new Task("t2", 1000*3600);
+  var t2 = new Task("t2", 2000*3600);
   var t3 = new Task("t3", 1000*3600);
 
   c.addTask(t1);
@@ -42,8 +42,8 @@ module.exports = function() {
     c.getEvents()[1].getTitle() === "TaskBlock" &&
     c.getEvents()[2].getTitle() === "e2" &&
     c.getEvents()[3].getTitle() === "TaskBlock" &&
-    c.getEvents()[4].getTitle() === "TaskBlock" &&
-    c.getEvents()[5].getTitle() === "e3"
+    c.getEvents()[4].getTitle() === "e3" &&
+    c.getEvents()[5].getTitle() === "TaskBlock"
     // false
 
   );
